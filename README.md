@@ -18,7 +18,9 @@ Radio or the `sdr` Python package, so every modulator/demodulator is
 understood and verifiable against theory.
 
 ## Project Structure
+
 sdr-simulator/
+
 ├── src/            # Core modules (signal_gen, visualize, modulation, etc.)
 
 ├── data/           # Downloaded IQ sample files (not committed - see below)
