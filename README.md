@@ -20,11 +20,17 @@ understood and verifiable against theory.
 ## Project Structure
 sdr-simulator/
 ├── src/            # Core modules (signal_gen, visualize, modulation, etc.)
+
 ├── data/           # Downloaded IQ sample files (not committed - see below)
+
 ├── notebooks/      # Jupyter notebooks for exploration/demos
+
 ├── tests/          # Unit tests verifying theory (bandwidth, power, BER)
+
 ├── docs/           # Output figures, block diagrams, write-ups
+
 └── requirements.txt
+
 ## Setup
 
 ```bash
