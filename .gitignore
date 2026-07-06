@@ -1,0 +1,7 @@
+sdr-env/
+__pycache__/
+*.pyc
+.ipynb_checkpoints/
+data/*.wav
+data/*.iq
+data/*.sigmf-data
