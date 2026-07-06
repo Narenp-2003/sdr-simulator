@@ -1,4 +1,3 @@
-cat > README.md << 'EOF'
 # Software-Defined Radio Simulator
 
 A from-scratch, software-only SDR pipeline in Python: signal generation,
