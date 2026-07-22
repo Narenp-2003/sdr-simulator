@@ -18,20 +18,19 @@ Radio or the `sdr` Python package, so every modulator/demodulator is
 understood and verifiable against theory.
 
 ## Project Structure
-
 sdr-simulator/
 
-├── src/            # Core modules (signal_gen, visualize, modulation, etc.)
+├── src/ # Core modules (signal_gen, visualize, modulation, etc.)
 
-├── data/           # Downloaded IQ sample files (not committed - see below)
+├── data/ # Downloaded IQ sample files (not committed - see below)
 
-├── notebooks/      # Jupyter notebooks for exploration/demos
+├── notebooks/ # Jupyter notebooks for exploration/demos
 
-├── tests/          # Unit tests verifying theory (bandwidth, power, BER)
+├── tests/ # Unit tests verifying theory (bandwidth, power, BER)
 
-├── docs/           # Output figures, block diagrams, write-ups
+├── docs/ # Output figures, block diagrams, write-ups
 
-└── requirements.txt 
+└── requirements.txt
 
 ## Setup
 
@@ -45,10 +44,10 @@ pip install -r requirements.txt
 
 - [x] **Week 1** — Signal generation, time/frequency/spectrogram visualization
 - [x] **Week 2** — AM (DSB-FC) and FM modulators built from scratch, bandwidth verified against Carson's Rule
-- [ ] **Week 3** — Envelope/PLL/quadrature demodulators, roundtrip SNR/THD testing
-- [ ] **Week 4** — Real IQ data ingestion + FIR/IIR filtering, decode real FM broadcast
-- [ ] **Week 5** — AWGN/fading channel models, BER curves, live waterfall display
-- [ ] **Week 6** — CLI/GUI wrapper, polished write-up, GitHub release
+- [x] **Week 3** — AM envelope detector and FM quadrature demodulator, round-trip SNR verification
+- [ ] **Week 4** — Real audio (.wav) input, complex I/Q signal representation, real IQ capture support
+- [ ] **Week 5** — AWGN channel noise simulation, SNR degradation curves, live waterfall display
+- [ ] **Week 6** — CLI wrapper, polished write-up, GitHub release
 
 ## Getting Real IQ Data (no hardware needed)
 
@@ -91,6 +90,28 @@ against the **measured** bandwidth from the actual FFT spectrum.
 Results: theoretical and measured bandwidth matched exactly
 (AM: 2000 Hz, FM: 12000 Hz), confirming the modulator implementations
 are mathematically correct. Output saved to `docs/week2_output.png`.
+
+## Week 3: Demodulation + Round-Trip Verification
+
+Run:
+```bash
+cd src
+python week3_demo.py
+```
+
+Implements the receiver side of the pipeline:
+- **AM envelope detector** — Hilbert transform + low-pass filtering to
+  recover the message from an AM waveform
+- **FM quadrature demodulator** — instantaneous phase differentiation
+  to recover the message from an FM waveform
+
+Each demodulator is tested in a full round trip: original message →
+modulate → demodulate → compare recovered signal to the original using
+SNR (signal-to-noise ratio).
+
+Results: AM recovery SNR of 43.7 dB, FM recovery SNR of 44.0 dB —
+both near-perfect reconstructions, confirming the modulator/demodulator
+pairs are mathematically consistent. Output saved to `docs/week3_output.png`.
 
 ## License
 
