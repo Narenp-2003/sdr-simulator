@@ -86,3 +86,60 @@ if __name__ == "__main__":
 
     print(f"Generated {len(am_signal)} samples over {duration*1000:.1f} ms")
     print(f"Peak frequency in spectrum: {peak_freq:.1f} Hz (expect ~100000 Hz carrier)")
+
+
+from scipy.signal import hilbert, butter, filtfilt
+
+
+def am_envelope_detect(am_signal, sample_rate, cutoff_freq=5000):
+    """
+    AM envelope detector using the Hilbert transform.
+    Recovers the message signal from an AM (DSB-FC) waveform by
+    tracking the envelope, then low-pass filtering to smooth it.
+    """
+    analytic_signal = hilbert(am_signal)
+    envelope = np.abs(analytic_signal)
+
+    # Remove DC offset (the "1 +" from the modulation formula) and
+    # smooth with a low-pass filter to clean up detector noise.
+    envelope = envelope - np.mean(envelope)
+    b, a = butter(4, cutoff_freq / (sample_rate / 2), btype='low')
+    return filtfilt(b, a, envelope)
+
+
+def fm_quadrature_demodulate(fm_signal, sample_rate, carrier_freq, freq_deviation):
+    """
+    FM quadrature demodulator.
+    Recovers the message by computing the instantaneous phase of the
+    analytic signal and differentiating it (frequency = d(phase)/dt),
+    then removing the carrier frequency offset and scaling by kf.
+    """
+    analytic_signal = hilbert(fm_signal)
+    instantaneous_phase = np.unwrap(np.angle(analytic_signal))
+    instantaneous_freq = np.diff(instantaneous_phase) / (2 * np.pi) * sample_rate
+
+    # Remove carrier offset, scale back to original message amplitude
+    message_recovered = (instantaneous_freq - carrier_freq) / freq_deviation
+    return np.append(message_recovered, message_recovered[-1])  # pad to match length
+
+
+def signal_to_noise_ratio(original, recovered):
+    """
+    Compute SNR (dB) between an original and recovered signal.
+    Higher is better - measures how close the demodulated signal is
+    to the true message.
+    """
+    # Align lengths and normalize both signals for fair comparison
+    n = min(len(original), len(recovered))
+    original = original[:n]
+    recovered = recovered[:n]
+
+    original = original / np.max(np.abs(original))
+    recovered = recovered / np.max(np.abs(recovered))
+
+    noise = original - recovered
+    signal_power = np.mean(original ** 2)
+    noise_power = np.mean(noise ** 2)
+    if noise_power == 0:
+        return float('inf')
+    return 10 * np.log10(signal_power / noise_power)
