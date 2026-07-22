@@ -18,83 +18,21 @@ Radio or the `sdr` Python package, so every modulator/demodulator is
 understood and verifiable against theory.
 
 ## Project Structure
-cat > README.md << 'EOF'
-# Software-Defined Radio Simulator
 
-A from-scratch, software-only SDR pipeline in Python: signal generation,
-AM/FM modulation & demodulation, filtering, noise simulation, and
-real-time spectrum/waterfall visualization. No SDR hardware required —
-built to run on real downloaded IQ captures as well as synthetic signals.
-
-## Motivation
-
-This project implements core communication theory concepts
-(modulation, demodulation, Carson's Rule, matched filtering, noise
-channels) as working code rather than just simulation in MATLAB/theory
-exercises — closing the gap between coursework and applied DSP/RF
-engineering.
-
-Built from first principles rather than using existing tools like GNU
-Radio or the `sdr` Python package, so every modulator/demodulator is
-understood and verifiable against theory.
-
-## Project Structure
 sdr-simulator/
+
 ├── src/            # Core modules (signal_gen, visualize, modulation, etc.)
+
 ├── data/           # Downloaded IQ sample files (not committed - see below)
+
 ├── notebooks/      # Jupyter notebooks for exploration/demos
+
 ├── tests/          # Unit tests verifying theory (bandwidth, power, BER)
+
 ├── docs/           # Output figures, block diagrams, write-ups
+
 └── requirements.txt 
-cat > README.md << 'EOF'
-# Software-Defined Radio Simulator
 
-A from-scratch, software-only SDR pipeline in Python: signal generation,
-AM/FM modulation & demodulation, filtering, noise simulation, and
-real-time spectrum/waterfall visualization. No SDR hardware required —
-built to run on real downloaded IQ captures as well as synthetic signals.
-
-## Motivation
-
-This project implements core communication theory concepts
-(modulation, demodulation, Carson's Rule, matched filtering, noise
-channels) as working code rather than just simulation in MATLAB/theory
-exercises — closing the gap between coursework and applied DSP/RF
-engineering.
-
-Built from first principles rather than using existing tools like GNU
-Radio or the `sdr` Python package, so every modulator/demodulator is
-understood and verifiable against theory.
-
-## Project Structure
-cat > README.md << 'EOF'
-# Software-Defined Radio Simulator
-
-A from-scratch, software-only SDR pipeline in Python: signal generation,
-AM/FM modulation & demodulation, filtering, noise simulation, and
-real-time spectrum/waterfall visualization. No SDR hardware required —
-built to run on real downloaded IQ captures as well as synthetic signals.
-
-## Motivation
-
-This project implements core communication theory concepts
-(modulation, demodulation, Carson's Rule, matched filtering, noise
-channels) as working code rather than just simulation in MATLAB/theory
-exercises — closing the gap between coursework and applied DSP/RF
-engineering.
-
-Built from first principles rather than using existing tools like GNU
-Radio or the `sdr` Python package, so every modulator/demodulator is
-understood and verifiable against theory.
-
-## Project Structure
-sdr-simulator/
-├── src/            # Core modules (signal_gen, visualize, modulation, etc.)
-├── data/           # Downloaded IQ sample files (not committed - see below)
-├── notebooks/      # Jupyter notebooks for exploration/demos
-├── tests/          # Unit tests verifying theory (bandwidth, power, BER)
-├── docs/           # Output figures, block diagrams, write-ups
-└── requirements.txt 
 ## Setup
 
 ```bash
